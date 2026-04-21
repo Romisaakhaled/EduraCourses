@@ -3,74 +3,103 @@
     {
       "id": "1",
       "title": "UX/UI Design Bootcamp",
-      "tags": ["design"],
+      "tags": [
+        "design"
+      ],
       "rating": 4.9,
       "price": "250$",
-      "gradient": "from-purple-600 to-purple-800"
+      "gradient": "from-purple-600 to-purple-800",
+      "isFavorite": true
     },
     {
       "id": "2",
       "title": "React Frontend Dev",
-      "tags": ["development"],
+      "tags": [
+        "development"
+      ],
       "rating": 4.8,
       "price": "300$",
-      "gradient": "from-violet-700 to-purple-900"
+      "gradient": "from-violet-700 to-purple-900",
+      "isFavorite": false
     },
     {
       "id": "3",
       "title": "Digital Marketing Masterclass",
-      "tags": ["marketing"],
+      "tags": [
+        "marketing"
+      ],
       "rating": 4.5,
       "price": "150$",
-      "gradient": "from-purple-500 to-indigo-700"
+      "gradient": "from-purple-500 to-indigo-700",
+      "isFavorite": false
     },
     {
       "id": "4",
       "title": "Python for Data Science",
-      "tags": ["data science"],
+      "tags": [
+        "data science"
+      ],
       "rating": 4.7,
       "price": "280$",
-      "gradient": "from-indigo-600 to-purple-800"
+      "gradient": "from-indigo-600 to-purple-800",
+      "isFavorite": true
     },
     {
       "id": "5",
       "title": "Advanced CSS & Sass",
-      "tags": ["design", "development"],
+      "tags": [
+        "design",
+        "development"
+      ],
       "rating": 4.6,
       "price": "120$",
-      "gradient": "from-purple-400 to-violet-600"
+      "gradient": "from-purple-400 to-violet-600",
+      "isFavorite": false
     },
     {
       "id": "6",
       "title": "Node.js Backend Patterns",
-      "tags": ["development"],
+      "tags": [
+        "development"
+      ],
       "rating": 4.9,
       "price": "320$",
-      "gradient": "from-violet-800 to-purple-950"
+      "gradient": "from-violet-800 to-purple-950",
+      "isFavorite": false
     },
     {
       "id": "7",
       "title": "Social Media Strategy",
-      "tags": ["marketing"],
+      "tags": [
+        "marketing"
+      ],
       "rating": 4.3,
       "price": "90$",
-      "gradient": "from-purple-700 to-indigo-900"
+      "gradient": "from-purple-700 to-indigo-900",
+      "isFavorite": false
     },
     {
       "id": "8",
       "title": "Machine Learning Basics",
-      "tags": ["data science"],
+      "tags": [
+        "data science"
+      ],
       "rating": 4.8,
       "price": "400$",
-      "gradient": "from-indigo-500 to-purple-700"
+      "gradient": "from-indigo-500 to-purple-700",
+      "isFavorite": false
     },
     {
       "id": "9",
       "title": "Graphic Design Theory",
-      "tags": ["design"],
+      "tags": [
+        "design"
+      ],
       "rating": 4.4,
       "price": "110$",
-      "gradient": "from-purple-600 to-violet-800"
+      "gradient": "from-purple-600 to-violet-800",
+      "isFavorite": false
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

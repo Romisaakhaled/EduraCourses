@@ -15,7 +15,7 @@ const AboutEdura = () => {
     <section id="about-us" className="py-24 bg-[#FBF8FF] overflow-hidden">
       <div className="mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
         
-        {/* Title */}
+      
         <motion.div 
           initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeIn}
           className="text-center mb-16"
@@ -40,7 +40,6 @@ const AboutEdura = () => {
               </p>
             </motion.div>
 
-            {/* Features */}
             <div className="space-y-6">
               {[
                 { title: "Expert Instructors", desc: "Learn from industry leaders with 10+ years of experience.", icon: "fa-chalkboard-teacher" },
@@ -63,7 +62,7 @@ const AboutEdura = () => {
             </div>
           </div>
 
-          {/* Professional Image Section */}
+         
           <motion.div 
             initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}
             className="relative"
@@ -98,7 +97,7 @@ const AboutEdura = () => {
               </div>
             </div>
             
-            {/* Background Decoration */}
+           
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
           </motion.div>
 

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { motion } from 'framer-motion'; // استيراد مكتبة الانيميشن
+import { motion } from 'framer-motion'; 
 
 const categories = [
 
@@ -60,10 +60,10 @@ const categories = [
 
 export default function TopCategories() {
   return (
-    <section className="py-12 bg-white"> {/* قللنا الـ padding الطولي لتصغير الحجم الكلي */}
-      <div className="max-w-5xl mx-auto px-4"> {/* صغرنا الـ max-width لتقريب العناصر */}
+    <section className="py-12 bg-white"> 
+      <div className="max-w-5xl mx-auto px-4"> 
         
-        {/* Title Section مع انيميشن بسيط */}
+      
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -75,27 +75,27 @@ export default function TopCategories() {
         </motion.div>
 
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"> {/* صغرنا الـ gap */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {categories.map((cat, index) => (
             <motion.div 
               key={cat.id} 
-              // --- منطق الانيميشن هنا ---
-              initial={{ opacity: 0, y: 30 }} // يبدأ شفاف ونازل لتحت
-              whileInView={{ opacity: 1, y: 0 }} // يظهر ويطلع مكانه لما يظهر في السكرول
-              viewport={{ once: true, margin: "-50px" }} // يشتغل مرة واحدة بس
-              transition={{ duration: 0.5, delay: index * 0.1 }} // كل كارد يتأخر عن اللي قبله (Stagger)
-              // -----------------------
+            
+              initial={{ opacity: 0, y: 30 }} 
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }} 
+              transition={{ duration: 0.5, delay: index * 0.1 }} 
+           
               className="group flex flex-col items-center justify-center p-6 rounded-[1.5rem] bg-[#F9F9FB] border border-transparent hover:border-purple-600 hover:bg-white hover:shadow-xl hover:shadow-purple-100 transition-all duration-300 cursor-pointer"
             >
-              {/* Icon Container - صغرنا الحاوية */}
+         
               <div className="w-12 h-12 mb-4 flex items-center justify-center rounded-full bg-white shadow-sm group-hover:scale-110 transition-transform duration-300">
-                {/* صغرنا الـ SVG جوه الـ container */}
+               
                 <div className="scale-75"> 
                   {cat.icon}
                 </div>
               </div>
 
-              {/* Text Info - صغرنا الخطوط */}
+              
               <h3 className="text-[15px] font-bold text-gray-800 text-center mb-1 group-hover:text-purple-600 transition-colors">
                 {cat.title}
               </h3>
@@ -104,7 +104,7 @@ export default function TopCategories() {
           ))}
         </div>
 
-        {/* Dots */}
+   
         <div className="flex justify-center mt-8 gap-2">
            <span className="w-2 h-2 rounded-full bg-purple-600"></span>
            <span className="w-2 h-2 rounded-full bg-gray-200"></span>
