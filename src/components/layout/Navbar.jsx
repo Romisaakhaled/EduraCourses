@@ -45,9 +45,9 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
         bg-[#0B0F2F] ${scrolled ? "shadow-md py-2" : "py-4"}`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-12">
         
-      
+     
         <div className="flex items-center flex-shrink-0">
           <Link to="/" onClick={handleHomeClick}>
             <img

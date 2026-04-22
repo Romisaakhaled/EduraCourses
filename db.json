@@ -9,7 +9,7 @@
       "rating": 4.9,
       "price": "250$",
       "gradient": "from-purple-600 to-purple-800",
-      "isFavorite": true
+      "isFavorite": false
     },
     {
       "id": "2",

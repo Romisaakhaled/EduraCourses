@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; 
+
+import { WishlistContext } from "../../context/WishlistContext.jsx";
 
 export default function CourseExplorer() {
   const [courses, setCourses] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
+  
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { favorites, toggleWishlist } = useContext(WishlistContext);
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
   const fetchCourses = () => {
+    setLoading(true);
+    setError(null);   
     axios.get('http://localhost:5000/courses')
-      .then(res => setCourses(res.data))
-      .catch(err => console.error(err));
-  };
-
-  const handleToggleWishlist = async (id, currentStatus) => {
-    try {
-     
-      await axios.patch(`http://localhost:5000/courses/${id}`, {
-        isFavorite: !currentStatus
+      .then(res => {
+        setCourses(res.data);
+        setLoading(false); 
+      })
+      .catch(err => {
+        console.error("Error fetching courses:", err);
+        setError("Failed to load courses. Please check your server."); // تحديد حالة الخطأ
+        setLoading(false);
       });
-     
-      fetchCourses();
-    } catch (err) {
-      console.error("Error updating wishlist", err);
-    }
   };
 
   const filteredCards = courses.filter(card => 
@@ -44,39 +49,69 @@ export default function CourseExplorer() {
             <button 
               key={f} 
               onClick={() => setActiveFilter(f)}
-              className={`px-6 py-2 rounded-full text-xs font-bold transition-all ${activeFilter === f ? 'bg-purple-600 text-white shadow-lg' : 'bg-white text-gray-400 border border-gray-100 hover:bg-purple-50'}`}
+              className={`px-6 py-2 rounded-full text-xs font-bold transition-all ${
+                activeFilter === f ? 'bg-purple-600 text-white shadow-lg' : 'bg-white text-gray-400 border border-gray-100 hover:bg-purple-50'
+              }`}
             >
               {f.toUpperCase()}
             </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCards.map(card => (
-            <CourseCard 
-              key={card.id} 
-              card={card} 
-              onToggleFavorite={() => handleToggleWishlist(card.id, card.isFavorite)} 
-            />
-          ))}
-        </div>
+       
+        {loading && (
+          <div className="text-center py-20">
+             <div className="inline-block w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+             <p className="mt-4 text-purple-600 font-bold">Loading Courses...</p>
+          </div>
+        )}
+
+        {!loading && error && (
+          <div className="text-center py-20 bg-red-50 rounded-3xl border border-red-100">
+            <p className="text-red-500 font-bold">{error}</p>
+            <button onClick={fetchCourses} className="mt-4 px-6 py-2 bg-red-500 text-white rounded-full text-xs font-bold">Retry</button>
+          </div>
+        )}
+
+  
+        {!loading && !error && filteredCards.length === 0 && (
+          <div className="text-center py-20">
+            <i className="fas fa-search text-gray-200 text-5xl mb-4"></i>
+            <p className="text-gray-400 font-bold">No courses found in this category.</p>
+          </div>
+        )}
+
+    
+        {!loading && !error && filteredCards.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredCards.map(card => {
+              const isFav = favorites.some(fav => fav.id === card.id);
+              return (
+                <CourseCard 
+                  key={card.id} 
+                  card={{...card, isFavorite: isFav}} 
+                  onToggleFavorite={() => toggleWishlist(card)} 
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
+
 function CourseCard({ card, onToggleFavorite }) {
   return (
     <div className="bg-white rounded-[30px] overflow-hidden shadow-md border border-gray-50 group max-w-sm transition-transform hover:scale-[1.02]">
       <div className={`relative h-40 bg-gradient-to-br ${card.gradient || 'from-[#8B2FF1] to-[#670DCC]'} overflow-hidden`}>
-        
         <button 
           onClick={onToggleFavorite}
           className="absolute top-4 right-5 w-9 h-9 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all hover:bg-white/40 z-10"
         >
           <i className={`${card.isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'} text-lg`}></i>
         </button>
-        
         <div className="absolute top-6 left-[-15px] w-24 h-24 border-[10px] border-white/10 rounded-full"></div>
         <div className="absolute bottom-[-15px] right-[-10px] w-20 h-20 bg-white/10 rounded-full"></div>
       </div>
@@ -102,8 +137,15 @@ function CourseCard({ card, onToggleFavorite }) {
         </div>
 
         <div className="flex gap-3">
-          <button className="flex-1 py-2.5 border-2 border-[#8B2FF1] text-[#8B2FF1] rounded-xl font-bold text-[10px] hover:bg-[#8B2FF1] hover:text-white transition-all">Details</button>
-          <button className="flex-1 py-2.5 bg-[#8B2FF1] text-white rounded-xl font-bold text-[10px] hover:bg-[#670DCC] shadow-md transition-all">Enroll Now</button>
+          <Link 
+            to={`/courses/${card.id}`} 
+            className="flex-1 py-2.5 border-2 border-[#8B2FF1] text-[#8B2FF1] rounded-xl font-bold text-[10px] hover:bg-[#8B2FF1] hover:text-white transition-all text-center flex items-center justify-center"
+          >
+            Details
+          </Link>
+          <button className="flex-1 py-2.5 bg-[#8B2FF1] text-white rounded-xl font-bold text-[10px] hover:bg-[#670DCC] shadow-md transition-all">
+            Enroll Now
+          </button>
         </div>
       </div>
     </div>
