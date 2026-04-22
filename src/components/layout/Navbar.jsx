@@ -28,7 +28,6 @@ export default function Navbar() {
     };
   }, []);
 
-  
   const handleHomeClick = () => {
     if (location.pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -46,9 +45,9 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
         bg-[#0B0F2F] ${scrolled ? "shadow-md py-2" : "py-4"}`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-10">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
         
-        {/* Logo */}
+      
         <div className="flex items-center flex-shrink-0">
           <Link to="/" onClick={handleHomeClick}>
             <img
@@ -59,7 +58,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-   
         <ul className={`${isSearchOpen ? "hidden lg:flex" : "hidden md:flex"} gap-10 text-sm font-medium`}>
           <li>
             <Link to="/" onClick={handleHomeClick} className="text-gray-300 hover:text-white transition-colors">
@@ -67,7 +65,6 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-          
             <a href="/#CourseExplorer" className="text-gray-300 hover:text-white transition-colors">
               Courses
             </a>
@@ -81,7 +78,8 @@ export default function Navbar() {
 
       
         <div className="flex items-center gap-5">
-    
+          
+     
           <div className="relative flex items-center">
             <input
               type="text"
@@ -104,7 +102,7 @@ export default function Navbar() {
               </svg>
             </button>
 
-            
+           
             {isSearchOpen && searchTerm && (
               <div className="absolute top-14 right-0 w-64 md:w-80 bg-[#0B0F2F] border border-gray-700 rounded-2xl shadow-2xl overflow-hidden z-[100]">
                 {filteredCourses.length > 0 ? (
@@ -131,6 +129,7 @@ export default function Navbar() {
             )}
           </div>
 
+    
           <Link 
             to="/wishlist" 
             className="relative p-2 hover:bg-white/10 rounded-full transition-all group"
@@ -153,14 +152,20 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* Auth Buttons */}
+        
           <div className="flex items-center gap-2">
-            <button className="hidden sm:block px-4 py-2 text-gray-300 text-sm font-medium hover:text-white transition-colors">
+            <Link 
+              to="/login" 
+              className="hidden sm:block px-4 py-2 text-gray-300 text-sm font-medium hover:text-white transition-colors"
+            >
               Log in
-            </button>
-            <button className="px-6 py-2.5 rounded-full border border-purple-500 text-white text-sm font-medium hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20">
+            </Link>
+            <Link 
+              to="/signup" 
+              className="px-6 py-2.5 rounded-full border border-purple-500 text-white text-sm font-medium hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20"
+            >
               Sign Up
-            </button>
+            </Link>
           </div>
         </div>
       </div>
