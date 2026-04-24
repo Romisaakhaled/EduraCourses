@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react"; 
 import { Link, useLocation } from "react-router-dom";
+import { WishlistContext } from "../../context/WishlistContext.jsx"; 
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [courses, setCourses] = useState([]);
-  const location = useLocation(); 
+  
+  const { favorites } = useContext(WishlistContext); 
+  const location = useLocation();
 
   useEffect(() => {
+   
     const fetchData = () => {
       fetch("http://localhost:5000/courses")
         .then((res) => res.json())
@@ -17,14 +21,12 @@ export default function Navbar() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 1000); 
 
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      clearInterval(interval);
     };
   }, []);
 
@@ -38,7 +40,7 @@ export default function Navbar() {
     course.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const wishlistCount = courses.filter(c => c.isFavorite).length;
+  const wishlistCount = favorites ? favorites.length : 0;
 
   return (
     <nav
@@ -47,7 +49,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-12">
         
-     
+       
         <div className="flex items-center flex-shrink-0">
           <Link to="/" onClick={handleHomeClick}>
             <img
@@ -58,28 +60,40 @@ export default function Navbar() {
           </Link>
         </div>
 
+  
         <ul className={`${isSearchOpen ? "hidden lg:flex" : "hidden md:flex"} gap-10 text-sm font-medium`}>
           <li>
-            <Link to="/" onClick={handleHomeClick} className="text-gray-300 hover:text-white transition-colors">
+            <Link 
+              to="/" 
+              onClick={handleHomeClick} 
+              className="relative text-gray-300 hover:text-white transition-colors duration-300 py-1 group"
+            >
               Home
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#8B2FF1] transition-all duration-300 group-hover:w-full shadow-[0_0_8px_#8B2FF1]"></span>
             </Link>
           </li>
           <li>
-            <a href="/#CourseExplorer" className="text-gray-300 hover:text-white transition-colors">
+            <a 
+              href="/#CourseExplorer" 
+              className="relative text-gray-300 hover:text-white transition-colors duration-300 py-1 group"
+            >
               Courses
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#8B2FF1] transition-all duration-300 group-hover:w-full shadow-[0_0_8px_#8B2FF1]"></span>
             </a>
           </li>
           <li>
-            <a href="/#about-us" className="text-gray-300 hover:text-white transition-colors">
+            <a 
+              href="/#about-us" 
+              className="relative text-gray-300 hover:text-white transition-colors duration-300 py-1 group"
+            >
               About Us
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#8B2FF1] transition-all duration-300 group-hover:w-full shadow-[0_0_8px_#8B2FF1]"></span>
             </a>
           </li>
         </ul>
 
-      
         <div className="flex items-center gap-5">
-          
-     
+       
           <div className="relative flex items-center">
             <input
               type="text"
@@ -129,7 +143,7 @@ export default function Navbar() {
             )}
           </div>
 
-    
+         
           <Link 
             to="/wishlist" 
             className="relative p-2 hover:bg-white/10 rounded-full transition-all group"
@@ -152,7 +166,7 @@ export default function Navbar() {
             )}
           </Link>
 
-        
+         
           <div className="flex items-center gap-2">
             <Link 
               to="/login" 

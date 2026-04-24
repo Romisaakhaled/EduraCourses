@@ -9,7 +9,7 @@
       "rating": 4.9,
       "price": "250$",
       "gradient": "from-purple-600 to-purple-800",
-      "isFavorite": false
+      "isFavorite": true
     },
     {
       "id": "2",
@@ -42,7 +42,7 @@
       "rating": 4.7,
       "price": "280$",
       "gradient": "from-indigo-600 to-purple-800",
-      "isFavorite": true
+      "isFavorite": false
     },
     {
       "id": "5",
@@ -76,7 +76,7 @@
       "rating": 4.3,
       "price": "90$",
       "gradient": "from-purple-700 to-indigo-900",
-      "isFavorite": false
+      "isFavorite": true
     },
     {
       "id": "8",
@@ -101,5 +101,5 @@
       "isFavorite": false
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json"
+ 
 }
